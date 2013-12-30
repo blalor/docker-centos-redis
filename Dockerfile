@@ -6,9 +6,12 @@ EXPOSE 6379
 
 VOLUME [ "/var/lib/redis" ]
 
+ENTRYPOINT [ "/launch.sh" ]
+
 RUN yum install -y redis && yum clean all
 
 ## fix up redis config file for Docker-friendliness
 RUN sed -i -e 's#daemonize yes#daemonize no#' -e '/bind/d' /etc/redis.conf
 
 ADD program-redis.conf /etc/supervisor.d/
+ADD launch.sh /launch.sh
