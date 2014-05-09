@@ -1,0 +1,6 @@
+{
+    "paths": [
+        "/var/log/redis/redis.log"
+    ],
+    "type": "redis"
+}

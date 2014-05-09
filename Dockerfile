@@ -1,17 +1,9 @@
-FROM blalor/centos-supervised:latest
-
+FROM blalor/supervised:latest
 MAINTAINER Brian Lalor <blalor@bravo5.org>
 
 EXPOSE 6379
 
+ADD src /tmp/src/
+RUN /tmp/src/config.sh
+
 VOLUME [ "/var/lib/redis" ]
-
-ENTRYPOINT [ "/launch.sh" ]
-
-RUN yum install -y redis && yum clean all
-
-## fix up redis config file for Docker-friendliness
-RUN sed -i -e 's#daemonize yes#daemonize no#' -e '/bind/d' /etc/redis.conf
-
-ADD program-redis.conf /etc/supervisor.d/
-ADD launch.sh /launch.sh
